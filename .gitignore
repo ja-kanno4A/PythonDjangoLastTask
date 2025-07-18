@@ -1,0 +1,35 @@
+*.log
+db-volumes/
+
+# Python 関連
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# 仮想環境（例えば venv や .venv）
+venv/
+.venv/
+
+# 環境変数などの設定ファイル
+.env
+*.env
+
+# SQLite3 データベースファイル
+db.sqlite3
+
+# Django migrations（必要に応じて）
+**/migrations/*.pyc
+**/migrations/__pycache__/
+
+# 隠しファイル・ディレクトリ（.から始まるもの）
+.*
+!/.gitignore
+
+#textファイル
+*.txt
+
+# tailwind関係
+node_modules/
+package-lock.json
