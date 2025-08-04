@@ -5,10 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css ' %}">
+    <!--GoogleFont読み込み -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- zenmaru -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Yuji+Syuku&family=Zen+Maru+Gothic&display=swap"
+        rel="stylesheet"
+    >
 
     <title>BBS Project{% block title %}{% endblock %}</title>
 </head>
-<body>
+<body class="w-full zen-maru-gothic-regular ">
     {% block content %}
     
     {% endblock %}
