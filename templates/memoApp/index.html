@@ -1,12 +1,75 @@
 {% extends "base.html" %}
 {% block title %}
 ★Memo-Home
-{% endblock%}
+{% endblock %}
 
 {% block content %}
+<div class="flex justify-between mt-10 mb-8">
+  <div class="flex w-5/12 h-full">
+    <a href="{% url 'addpage' %}" class="block w-1/2 h-full px-4 py-2 text-center text-white bg-green-300 rounded-md hover:bg-green-400">
+    + メモを追加
+    </a>
+  
+    <a href="{% url 'tag_add' %}" class="block w-1/2 h-full px-4 py-2 mx-10 text-center text-white bg-blue-300 rounded-md hover:bg-blue-400">
+      + タグを追加
+    </a>
+  </div>
 
-<div>
-  <div class="block w-20 h-20 bg-red-300">ここにfor文でめもが並ぶ</div>
+  <!-- タグ選択（ドロップダウン） -->
+   <div class="block ">
+     <form method="get" class="flex justify-center mb-6 ">
+       <label for="tag" class="block my-auto mr-2 font-semibold">タグで絞り込む：</label>
+       <select name="tag" id="tag" onchange="this.form.submit()"
+         class="block px-4 py-2 border border-gray-300 rounded-md">
+         <option value="">すべてのメモ</option>
+           {% for tag in tags %}
+           <option value="{{ tag.id }}" {% if selected_tag == tag.id %}selected{% endif %}>
+             {{ tag.tagName }}
+           </option>
+         {% endfor %}
+       </select>
+     </form>
+   </div>
+
+
 </div>
-<a href="{% url 'addpage' %}">add</a>
+<div class="space-y-4">
+  {% for memo in memos %}
+    <div class="relative p-4 border-2 border-green-400 rounded-md shadow bg-lime-100">
+      <h2 class="text-xl font-bold">{{ memo.title }}</h2>
+      <p class="text-gray-700">{{ memo.body }}</p>
+      <p class="text-sm text-gray-500">更新日: {{ memo.updateDate|date:"Y/m/d H:i" }}</p>
+      <p class="text-sm text-blue-600">
+        タグ: {% for tag in memo.tags.all %}
+          {{ tag.tagName }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      </p>
+
+      <!-- ボタン -->
+      <div class="absolute space-x-2 top-2 right-2">
+        <!-- 編集ボタン -->
+        <a href="{% url 'edit_memo' memo.id %}" 
+           class="px-3 py-1 text-sm text-white bg-blue-500 rounded hover:bg-blue-600">
+          編集
+        </a>
+
+        <!-- 削除ボタン -->
+        <form method="post" action="{% url 'delete_memo' memo.id %}" class="inline">
+          {% csrf_token %}
+          <button type="submit" 
+                  onclick="return confirm('本当にこのメモを削除しますか？')"
+                  class="px-3 py-1 text-sm text-white bg-red-500 rounded hover:bg-red-600">
+            削除
+          </button>
+        </form>
+      </div>
+    </div>
+  {% empty %}
+    <p class="text-gray-500">メモがまだありません。</p>
+  {% endfor %}
+</div>
+<div class="mt-20"></div>
+
+
+
 {% endblock %}

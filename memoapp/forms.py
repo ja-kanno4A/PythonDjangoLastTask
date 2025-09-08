@@ -9,26 +9,35 @@ import datetime
 class MemoAddForm(forms.ModelForm):
     class Meta:
         model = Memos
-        fields = ('title', 'body', 'tags', 'updateDate')
-        widgets = {
-            'updatetime': forms.DateTimeInput(attrs={"type":"datetime-local"})
-        }
-    
+        fields = ('title', 'body', 'tags')  # ← updateDate を外す
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["title"].widget.attrs = {'placeholder': 'タスク名'}
-        self.fields["body"].widget.attrs = {'placeholder': '詳細'}
-        
+        self.fields["title"].widget.attrs = {
+            'placeholder': 'タスク名',
+            'class': 'w-full p-2 border border-gray-300 rounded-md'
+        }
+        self.fields["tags"].widget_attrs={
+            'class': 'w-full p-2 border border-gray-300 rounded-md'
+        }
+        self.fields["body"].widget.attrs = {
+            'placeholder': '詳細',
+            'class': 'w-full p-2 border border-gray-300 rounded-md'
+        }
+
+
     def clean_updateDate(self):
-        updateDate = self.cleaned_data.get('updateDate')
-        updateDate = datetime.datetime.now()
-        return updateDate
+        # フォームの入力に関係なく、現在時刻を返す
+        return datetime.datetime.now()
     
 class TagsAddForm(forms.ModelForm):
     class Meta:
         model = Tags
-        fields = {"tagName"}
-    
+        fields = ["tagName"]
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["TagName"].widget.attrs = {"placeholder" : "タグ名(カンマ(,)は使用しないでください))"}
+        self.fields["tagName"].widget.attrs = {
+            "placeholder": "タグ名",
+            "class": "w-full p-2 border border-gray-300 rounded-md"
+        }

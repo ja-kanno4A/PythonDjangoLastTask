@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}タグ追加{% endblock %}
+
+{% block content %}
+<h1 class="my-4 text-2xl font-bold text-center">タグ追加ページ</h1>
+
+<form action="{% url 'tag_add' %}" method="post" class="w-1/3 mx-auto">
+  {% csrf_token %}
+  <div class="mb-4">
+    {{ form.tagName.label_tag }}
+    {{ form.tagName }}
+    {% if form.tagName.errors %}
+      <div class="text-sm text-red-500">
+        {% for error in form.tagName.errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+  <button type="submit" class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-700">
+    保存
+  </button>
+</form>
+
+<a href="{% url 'index' %}" class="block mt-6 text-center text-blue-600 underline hover:text-blue-800">
+  トップに戻る
+</a>
+{% endblock %}

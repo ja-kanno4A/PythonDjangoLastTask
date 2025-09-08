@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/output.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css ' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!--GoogleFont読み込み -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,11 +15,34 @@
         rel="stylesheet"
     >
 
-    <title>BBS Project{% block title %}{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
 </head>
-<body class="w-full zen-maru-gothic-regular ">
-    {% block content %}
-    
-    {% endblock %}
+<body class="w-full zen-maru-gothic-regular">
+    <header class="w-full py-2 border-b-2 border-red-200 border-solid">
+        <div class="flex">
+            <!--Icon,Nav,etc...-->
+            <div class="flex mx-10">
+                <div class="w-1/5"><img class="w-[100%] h-[100%] object-cover" src="{%static 'img/Logo1.png'%}" alt=""></div>
+            </div>
+            <!--SerchBox-->
+            <div class="my-auto search_box">
+                <input type="text" class="border-2 border-solid rounded-sm border-slate-200"
+                placeholder="serch" id="serchNone" name="serchNone">
+            </div>
+            <div class="flex">
+                <button class="px-3 my-auto text-white bg-red-400 rounded-md h-9">検索</button>
+                <button class="block px-3 mx-5 my-auto text-white bg-blue-400 rounded-md h-9">全て表示</button>
+            </div>
+            
+        </div>
+    </header>
+    <main>
+        <div class="w-9/12 mx-auto">
+            {% block content %}
+        
+            {% endblock %}
+        </div>
+    </main>
+
 </body>
 </html>

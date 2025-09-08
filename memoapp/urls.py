@@ -4,7 +4,7 @@ from memoapp import views as mm
 urlpatterns = [
     path("", mm.memoindex, name="index"),
     path("add/", mm.add, name="addpage"),
-    # path('<int:pk>/edit/',v.edit, name="edit"),
-    # path("<int:pk>/delete",v.Delete,name="delete"),
-    # path("update_task_complete/", v.update_task_complete, name="update_task_complete"),
+    path("tags/add/", mm.TagAddView.as_view(), name="tag_add"),
+    path("edit/<int:pk>/", mm.edit_memo, name="edit_memo"),      # 編集ページ
+    path("delete/<int:pk>/", mm.delete_memo, name="delete_memo"),  # 削除処理
 ]
